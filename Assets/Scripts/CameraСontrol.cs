@@ -25,7 +25,7 @@ public class CameraСontrol : MonoBehaviour
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, _minAngle, _maxAngle);
 
-        transform.localRotation = Quaternion.Euler(0, _xRotation, 0);
+        transform.localRotation = Quaternion.Euler( _xRotation,0, 0);
 
         _player.Rotate(Vector3.up * mouseX);
     }
