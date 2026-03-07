@@ -10,7 +10,10 @@ public class CameraСontrol : MonoBehaviour
     private float _xRotation = 0;
     private float _minAngle = -90f;
     private float _maxAngle = 90f;
- 
+    private float mouseX;
+    private float mouseY;
+
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -19,8 +22,8 @@ public class CameraСontrol : MonoBehaviour
 
     private void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * _speedMouse * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * _speedMouse * Time.deltaTime;
+        mouseX = Input.GetAxis("Mouse X") * _speedMouse * Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * _speedMouse * Time.deltaTime;
     
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, _minAngle, _maxAngle);
