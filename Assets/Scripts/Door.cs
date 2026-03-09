@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private readonly int OpenTriger = Animator.StringToHash("Open");
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] private Animator _animator;
+
+    public void Open()
     {
-        
+        _animator.SetTrigger(OpenTriger);
     }
 }
