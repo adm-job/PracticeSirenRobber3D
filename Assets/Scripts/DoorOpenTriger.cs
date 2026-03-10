@@ -11,7 +11,6 @@ public class DoorOpenTriger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(_hasOpener);
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             _hasOpener = true;
@@ -20,7 +19,6 @@ public class DoorOpenTriger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log(_hasOpener);
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             _hasOpener = true;
@@ -39,6 +37,5 @@ public class DoorOpenTriger : MonoBehaviour
             _door.Open();
             _isOpened = false;
         }
-
     }
 }
