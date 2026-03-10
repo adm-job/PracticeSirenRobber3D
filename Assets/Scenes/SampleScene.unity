@@ -1014,6 +1014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 1245855610}
+  _door: {fileID: 775800364}
 --- !u!1 &1468664157
 GameObject:
   m_ObjectHideFlags: 0
