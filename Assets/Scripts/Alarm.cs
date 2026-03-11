@@ -18,7 +18,6 @@ public class Alarm : MonoBehaviour
 
     private void PlaySiren()
     {
-        Debug.Log("ALARM");
         _audioSource.Play();
     }
 }
