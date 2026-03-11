@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    public event Action Opening;
-
+    [SerializeField] private Animator _animator;
     private readonly int OpenTriger = Animator.StringToHash("Open");
 
-    [SerializeField] private Animator _animator;
+    public event Action Opening;
 
     public void Open()
     {
-        _animator.SetTrigger(OpenTriger);
         Opening?.Invoke();
+        _animator.SetTrigger(OpenTriger);
     }
 }

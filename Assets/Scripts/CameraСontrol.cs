@@ -12,7 +12,8 @@ public class CameraСontrol : MonoBehaviour
     private float _maxAngle = 90f;
     private float mouseX;
     private float mouseY;
-
+    private string _movementX = "Mouse X";
+    private string _movementY = "Mouse Y";
 
     private void Start()
     {
@@ -22,8 +23,8 @@ public class CameraСontrol : MonoBehaviour
 
     private void Update()
     {
-        mouseX = Input.GetAxis("Mouse X") * _speedMouse * Time.deltaTime;
-        mouseY = Input.GetAxis("Mouse Y") * _speedMouse * Time.deltaTime;
+        mouseX = Input.GetAxis(_movementX) * _speedMouse * Time.deltaTime;
+        mouseY = Input.GetAxis(_movementY) * _speedMouse * Time.deltaTime;
     
         _xRotation -= mouseY;
         _xRotation = Mathf.Clamp(_xRotation, _minAngle, _maxAngle);

@@ -21,7 +21,7 @@ public class DoorOpenTriger : MonoBehaviour
     {
         if (other.TryGetComponent<DoorOpener>(out _))
         {
-            _hasOpener = true;
+            _hasOpener = false;
         }
     }
 
@@ -32,10 +32,10 @@ public class DoorOpenTriger : MonoBehaviour
             return;
         }
 
-        if (_hasOpener && Input.GetKeyDown(KeyCode.E))
+        if (_hasOpener)
         {
             _door.Open();
-            _isOpened = false;
+            _isOpened = true;
         }
     }
 }
