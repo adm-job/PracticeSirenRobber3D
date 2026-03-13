@@ -20,35 +20,14 @@ public class Alarm : MonoBehaviour
 
     private void OnDisable()
     {
-            Debug.Log("");
         _door.Opening -= PlaySiren;
         _alarmRoomTriger.inRoom -= OpenRoom;
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<DoorOpener>(out _))
-        {
-            _isRoomAlarm = true;
-            Debug.Log(_isRoomAlarm);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.TryGetComponent<DoorOpener>(out _))
-        {
-            _isRoomAlarm = false;
-            Debug.Log(_isRoomAlarm);
-        }
-    }
-    
-
 
     private void Awake()
     {
         _audioSource.volume = 0;
     }
-
 
     private void Update()
     {
@@ -76,11 +55,16 @@ public class Alarm : MonoBehaviour
 
     private IEnumerator TurnUpVolume()
     {
-        if (_audioSource.volume <= 1)
+        while (enabled)
         {
-            _audioSource.volume += 0.02f;
+            if (_audioSource.volume <= 1)
+            {
+                _audioSource.volume += 0.002f;
+            }
+            yield return new WaitForSecondsRealtime(1f);
         }
-        yield return new WaitForSecondsRealtime(1f);
     }
+
+
 }
 

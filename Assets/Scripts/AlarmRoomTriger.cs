@@ -12,6 +12,7 @@ public class AlarmRoomTriger : MonoBehaviour
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             inRoom?.Invoke(true);
+            Debug.Log("Вошел");
         }
     }
 
@@ -20,6 +21,7 @@ public class AlarmRoomTriger : MonoBehaviour
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             inRoom?.Invoke(false);
+            Debug.Log("Вышел");
         }
     }
 }
