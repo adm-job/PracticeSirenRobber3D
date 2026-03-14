@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Alarm : MonoBehaviour
@@ -9,8 +7,18 @@ public class Alarm : MonoBehaviour
     [SerializeField] private Door _door;
     [SerializeField] private AlarmRoomTriger _alarmRoomTriger;
 
-    private bool _isOpenDoor = false;
-    private bool _isRoomAlarm = false;
+    private Coroutine _turnUp;
+    private Coroutine _turnDown;
+    private float _sleep = 1;
+    private float _stepVolume = 0.02f;
+    private float _maxVolume = 1;
+    private float _minVolume = 0;
+
+    private void Awake()
+    {
+        _audioSource.volume = 0;
+        _audioSource.spatialBlend = 0;
+    }
 
     private void OnEnable()
     {
@@ -24,44 +32,68 @@ public class Alarm : MonoBehaviour
         _alarmRoomTriger.inRoom -= OpenRoom;
     }
 
-    private void Awake()
-    {
-        _audioSource.volume = 0;
-    }
-
-    private void Update()
-    {
-        if (_isRoomAlarm && _isOpenDoor)
-        {
-            _audioSource.Play();
-            StartCoroutine(TurnUpVolume());
-        }
-        else
-        {
-            StopCoroutine(TurnUpVolume());
-        }
-    }
-
     private void PlaySiren()
     {
-        _isOpenDoor = true;
-
+        _audioSource.Play();
     }
 
     private void OpenRoom(bool isOpen)
     {
-        _isRoomAlarm = isOpen;
+        if (isOpen)
+        {
+            if (_turnDown != null)
+            {
+                StopCoroutine(_turnDown);
+            }
+
+            _turnUp = StartCoroutine(TurnUpVolume());
+        }
+        else
+        {
+            if (_turnUp != null)
+            {
+                StopCoroutine(_turnUp);
+            }
+
+            _turnDown = StartCoroutine(TurnDownVolume());
+        }
     }
 
     private IEnumerator TurnUpVolume()
     {
+        WaitForSeconds delay = new WaitForSeconds(_sleep);
+
         while (enabled)
         {
-            if (_audioSource.volume <= 1)
+            if (_audioSource.volume < _maxVolume)
             {
-                _audioSource.volume += 0.002f;
+                _audioSource.volume += _stepVolume;
+
+                yield return delay;
             }
-            yield return new WaitForSecondsRealtime(1f);
+            else
+            {
+                yield break;
+            }
+        }
+    }
+
+    private IEnumerator TurnDownVolume()
+    {
+        WaitForSeconds delay = new WaitForSeconds(_sleep);
+
+        while (enabled)
+        {
+            if (_audioSource.volume > _minVolume)
+            {
+                _audioSource.volume -= _stepVolume;
+
+                yield return delay;
+            }
+            else
+            {
+                yield break;
+            }
         }
     }
 

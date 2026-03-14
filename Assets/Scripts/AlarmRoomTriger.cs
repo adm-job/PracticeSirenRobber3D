@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AlarmRoomTriger : MonoBehaviour
@@ -12,7 +10,6 @@ public class AlarmRoomTriger : MonoBehaviour
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             inRoom?.Invoke(true);
-            Debug.Log("Вошел");
         }
     }
 
@@ -21,7 +18,6 @@ public class AlarmRoomTriger : MonoBehaviour
         if (other.TryGetComponent<DoorOpener>(out _))
         {
             inRoom?.Invoke(false);
-            Debug.Log("Вышел");
         }
     }
 }
